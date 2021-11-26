@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func DelCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
+func delCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
 	if len(args) != 1 {
 		return fmt.Errorf("USAGE: DEL <COIN>")
 	}
@@ -22,6 +22,6 @@ func DelCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattabl
 		return err
 	}
 
-	out <- CreateReply(msg, fmt.Sprintf("DEL OK: %s", coin))
+	out <- createReply(msg, fmt.Sprintf("DEL OK: %s", coin))
 	return nil
 }

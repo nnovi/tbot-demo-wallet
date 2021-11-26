@@ -9,17 +9,17 @@ import (
 
 const tgBotToken = "2135305458:AAGt8DbF_b6pG98H4cKF8AMCLjmKZViP3fQ"
 
-type CommandHandler func(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error
+type commandHandler func(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error
 
-var commands = map[string]CommandHandler{
-	"ADD":  AddCommand,
-	"SUB":  SubCommand,
-	"DEL":  DelCommand,
-	"SHOW": ShowCommand,
+var commands = map[string]commandHandler{
+	"ADD":  addCommand,
+	"SUB":  subCommand,
+	"DEL":  delCommand,
+	"SHOW": showCommand,
 }
 
-func HelpCommand(msg *tgbotapi.Message, _ []string, out chan tgbotapi.Chattable) error {
-	out <- CreateReply(msg, `ADD <COIN> <AMOUNT>
+func helpCommand(msg *tgbotapi.Message, _ []string, out chan tgbotapi.Chattable) error {
+	out <- createReply(msg, `ADD <COIN> <AMOUNT>
 SUB <COIN> <AMOUNT>
 DEL <COIN>
 SHOW
@@ -30,7 +30,7 @@ HELP
 	return nil
 }
 
-func CreateReply(sourceMessage *tgbotapi.Message, reply string) tgbotapi.Chattable {
+func createReply(sourceMessage *tgbotapi.Message, reply string) tgbotapi.Chattable {
 	result := tgbotapi.NewMessage(sourceMessage.Chat.ID, reply)
 	result.ReplyToMessageID = sourceMessage.MessageID
 	return result
@@ -68,12 +68,12 @@ func main() {
 			go func() {
 				err := handler(update.Message, msg[1:], outChannel)
 				if err != nil {
-					outChannel <- CreateReply(update.Message, fmt.Sprintf("%v", err))
+					outChannel <- createReply(update.Message, fmt.Sprintf("%v", err))
 				}
 			}()
 		} else {
 			go func() {
-				_ = HelpCommand(update.Message, msg[1:], outChannel)
+				_ = helpCommand(update.Message, msg[1:], outChannel)
 			}()
 		}
 	}

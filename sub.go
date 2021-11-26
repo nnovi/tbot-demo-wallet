@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func SubCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
+func subCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
 	if len(args) != 2 {
 		return fmt.Errorf("USAGE: SUB <COIN> <AMOUNT>")
 	}
@@ -28,6 +28,6 @@ func SubCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattabl
 		return err
 	}
 
-	out <- CreateReply(msg, fmt.Sprintf("SUB OK: %s = %.5f", coin, balance))
+	out <- createReply(msg, fmt.Sprintf("SUB OK: %s = %.5f", coin, balance))
 	return nil
 }

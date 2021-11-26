@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func ShowCommand(msg *tgbotapi.Message, _ []string, out chan tgbotapi.Chattable) error {
+func showCommand(msg *tgbotapi.Message, _ []string, out chan tgbotapi.Chattable) error {
 	userWallet := getWallet(msg.Chat)
 
 	result := strings.Builder{}
@@ -35,7 +35,7 @@ func ShowCommand(msg *tgbotapi.Message, _ []string, out chan tgbotapi.Chattable)
 		result.WriteString(fmt.Sprintf("TOTAL: %.2f руб.", totalLocal))
 	}
 
-	out <- CreateReply(msg, result.String())
+	out <- createReply(msg, result.String())
 
 	return nil
 }

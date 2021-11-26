@@ -32,5 +32,3 @@ func getCoinPrice(fromCoin, toCoin string) (price float64, err error) {
 
 	return jsonResp.Price, nil
 }
-
-//https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT

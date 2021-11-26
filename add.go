@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func AddCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
+func addCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattable) error {
 	if len(args) != 2 {
 		return fmt.Errorf("USAGE: ADD <COIN> <AMOUNT>")
 	}
@@ -32,6 +32,6 @@ func AddCommand(msg *tgbotapi.Message, args []string, out chan tgbotapi.Chattabl
 		return err
 	}
 
-	out <- CreateReply(msg, fmt.Sprintf("ADD OK: %s = %.5f", coin, balance))
+	out <- createReply(msg, fmt.Sprintf("ADD OK: %s = %.5f", coin, balance))
 	return nil
 }
